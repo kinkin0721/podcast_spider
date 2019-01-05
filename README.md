@@ -19,6 +19,8 @@ albumid为专辑页面的网页地址的最后一串数字
 例：https://www.ximalaya.com/erciyuan/7382293/  
 albumid = *7382293*
 
+
+运行
 ```
 $ python run_sprider.py
 ```
