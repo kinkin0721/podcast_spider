@@ -6,6 +6,7 @@ import json
 from time import sleep
 from podgen import Media, Podcast
 import tools
+import os
 
 
 class Ximalaya:
@@ -49,8 +50,12 @@ class Ximalaya:
 
                 page_num += 1
 
-        self.podcast.rss_file('./ximalaya/{}.rss'.format(self.album_id), minimize=True)
-        tools.save_m4a('./ximalaya/{}.txt'.format(self.album_id), text)
+        path = './ximalaya'
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+        self.podcast.rss_file('./ximalaya/{}.xml'.format(self.album_id), minimize=True)
+        # tools.save_m4a('./ximalaya/{}.txt'.format(self.album_id), text)
         print("「{}」が上手に焼きました".format(self.album_id))
 
     def get_episode(self, episode_id):
