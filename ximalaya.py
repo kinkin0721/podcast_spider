@@ -77,7 +77,7 @@ class Ximalaya:
             # print(self.podcast.name + '=====' + episode.title)
             if 'intro' in detail:
                 episode.summary = detail['intro'].replace('\r', '\\r').replace('\n', '\\n')
-            episode.publication_date = tools.reduction_time(detail['createdAt'])
+            episode.publication_date = tools.publication_time(detail['createdAt'])
             episode.media = Media(detail['playUrl32'], detail['duration'])
             episode.position = 1
             findepisode = True

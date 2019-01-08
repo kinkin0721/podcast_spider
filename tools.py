@@ -4,6 +4,7 @@ import json
 import requests
 import pytz
 from datetime import datetime
+from time import sleep
 
 
 def load_config(filename):
@@ -39,7 +40,7 @@ def get_headers():
     return headers
 
 
-def reduction_time(time):
+def publication_time(time):
         timestamp = datetime.fromtimestamp(time / 1000)
         return datetime(timestamp.year, timestamp.month, timestamp.day, timestamp.hour, timestamp.minute,
                         tzinfo=pytz.utc)
