@@ -34,8 +34,8 @@ class Ximalaya:
             self.podcast.language = 'cn'
             self.podcast.image = 'https:' + album_info_data['mainInfo']['cover'].split('!')[0]
             self.podcast.generator = 'kanemori.getpodcast'
-            # self.podcast.feed_url = 'http://podcast.kanemori.info/ximalaya/%s.rss' % self.album_id
             self.podcast.explicit = False
+            self.podcast.withhold_from_itunes = True
 
             text = ''
             page_num = 1
@@ -50,12 +50,12 @@ class Ximalaya:
 
                 page_num += 1
 
-        path = './ximalaya'
+        path = './podcast/ximalaya'
         if not os.path.exists(path):
             os.makedirs(path)
 
-        self.podcast.rss_file('./ximalaya/{}.xml'.format(self.album_id), minimize=True)
-        # tools.save_m4a('./ximalaya/{}.txt'.format(self.album_id), text)
+        self.podcast.rss_file(os.path.join(path, '{}.xml'.format(self.album_id)), minimize=True)
+        # tools.save_m4a(os.path.join(path, '{}.txt'.format(self.album_id)), text)
         print("「{}」が上手に焼きました".format(self.album_id))
 
     def get_episode(self, episode_id):
