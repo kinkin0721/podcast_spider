@@ -20,6 +20,20 @@ def save_config(json_dict, filename):
         file.write(text)
 
 
+def get_url_with_datas(url, datas, headers, retries=10):
+    try:
+        res = requests.post(url, datas, headers=headers)
+    except Exception as what:
+        print(what, url)
+        if retries > 0:
+            sleep(5)
+            return get_url_with_datas(url, datas, headers, retries - 1)
+        else:
+            print('GET Failed {}'.format(url))
+            raise
+    return res.content
+
+
 def get_url(url, headers, retries=10):
     try:
         res = requests.get(url, headers=headers)

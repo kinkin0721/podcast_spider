@@ -3,6 +3,7 @@
 import time
 from tools import load_config
 import ximalaya
+import music163
 
 
 if __name__ == "__main__":
@@ -13,6 +14,8 @@ if __name__ == "__main__":
         try:
             if album['platform'] == 'ximalaya':
                 podcast = ximalaya.Ximalaya(int(album['albumid']))
+            if album['platform'] == 'music163':
+                podcast = music163.Music163(int(album['albumid']))
             podcast.get_podcast()
         except Exception as e:
             print('异常:', e)
