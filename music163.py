@@ -48,8 +48,7 @@ class Music163:
         episode.id = str('music163_djradio_' + str(program['id']))
         episode.title = program['name']
         # print(self.podcast.name + '=====' + episode.title)
-        # if 'intro' in detail:
-        #     episode.summary = detail['intro'].replace('\r', '\\r').replace('\n', '\\n')
+        episode.summary = program['description']
         episode.publication_date = tools.publication_time(program['createTime'])
         play_url = 'http://music.163.com/song/media/outer/url?id={}.mp3'.format(program['mainTrackId'])
         episode.media = Media(play_url, duration=timedelta(milliseconds=program['duration']), type='audio/mpeg')
