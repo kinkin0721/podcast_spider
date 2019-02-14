@@ -7,6 +7,7 @@ from time import sleep
 from podgen import Media, Podcast
 import tools
 import os
+from datetime import timedelta
 
 
 class Ximalaya:
@@ -78,7 +79,9 @@ class Ximalaya:
             if 'intro' in detail:
                 episode.summary = detail['intro'].replace('\r', '\\r').replace('\n', '\\n')
             episode.publication_date = tools.publication_time(detail['createdAt'])
-            episode.media = Media(detail['playUrl32'], detail['duration'])
+            episode.media = Media(detail['playUrl32'], duration=timedelta(seconds=detail['duration']))
+            # episode.media = Media.create_from_server_response(detail['playUrl32'],
+            #                                                   duration=timedelta(seconds=detail['duration']))
             episode.position = 1
             findepisode = True
 
