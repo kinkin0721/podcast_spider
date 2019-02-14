@@ -52,7 +52,7 @@ class Music163:
         #     episode.summary = detail['intro'].replace('\r', '\\r').replace('\n', '\\n')
         episode.publication_date = tools.publication_time(program['createTime'])
         play_url = 'http://music.163.com/song/media/outer/url?id={}.mp3'.format(program['mainTrackId'])
-        episode.media = Media(play_url, duration=timedelta(seconds=program['duration']), type='audio/mpeg')
+        episode.media = Media(play_url, duration=timedelta(milliseconds=program['duration']), type='audio/mpeg')
         episode.position = 1
 
         return play_url

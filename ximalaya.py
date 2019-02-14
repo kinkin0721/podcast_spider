@@ -79,7 +79,7 @@ class Ximalaya:
             if 'intro' in detail:
                 episode.summary = detail['intro'].replace('\r', '\\r').replace('\n', '\\n')
             episode.publication_date = tools.publication_time(detail['createdAt'])
-            episode.media = Media(detail['playUrl32'], duration=timedelta(seconds=detail['duration']))
+            episode.media = Media(detail['playUrl32'], duration=timedelta(milliseconds=detail['duration']))
             # episode.media = Media.create_from_server_response(detail['playUrl32'],
             #                                                   duration=timedelta(seconds=detail['duration']))
             episode.position = 1
