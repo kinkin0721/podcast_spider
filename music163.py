@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+import math
 import tools
 import json
 from podgen import Media, Podcast
@@ -13,11 +14,12 @@ class Music163:
         self.headers = {'referer': 'https://music.163.com/', 'Content-Type': 'application/x-www-form-urlencoded'}
         self.podcast = None
         self.album_id = album_id
+        self.episode_pre_page = 500
         self.album_info_url = 'http://music.163.com/api/dj/program/byradio'
         self.album_url = 'https://music.163.com/djradio?id={}'
 
     def get_podcast(self):
-        datas = {'radioId': self.album_id, 'limit': '1000', 'offset': '0'}
+        datas = {'radioId': self.album_id, 'limit': self.episode_pre_page, 'offset': '0'}
         webpage = tools.get_url_with_datas(self.album_info_url, datas, self.headers)
         album_info = json.loads(webpage.decode('utf-8'))
         if album_info['code'] == 200:
@@ -35,6 +37,18 @@ class Music163:
 
             for program in album_info['programs']:
                 self.get_episode(program)
+
+            page_num = 2
+            album_page_count = math.ceil(album_info['count'] / self.episode_pre_page) + 1
+            while page_num <= album_page_count:
+                datas = {'radioId': self.album_id, 'limit': self.episode_pre_page,
+                         'offset': self.episode_pre_page * (page_num - 1)}
+                webpage = tools.get_url_with_datas(self.album_info_url, datas, self.headers)
+                album_list = json.loads(webpage.decode('utf-8'))
+                for program in album_list['programs']:
+                    self.get_episode(program)
+
+                page_num += 1
 
             path = './podcast/music163'
             if not os.path.exists(path):
