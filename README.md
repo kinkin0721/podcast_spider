@@ -10,8 +10,8 @@
         "albumid": "244444"
     },
     {
-        "platform": "ximalaya",
-        "albumid": "7382293"
+        "platform": "music163",
+        "albumid": "968099"
     }
 ]
 ```
